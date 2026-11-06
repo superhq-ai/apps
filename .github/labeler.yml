@@ -1,0 +1,3 @@
+runs code:
+  - changed-files:
+      - any-glob-to-any-file: ["apps/**/*.sh", "apps/**/Procfile"]

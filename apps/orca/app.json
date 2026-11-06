@@ -1,0 +1,45 @@
+{
+  "name": "Orca",
+  "version": "1.4.250",
+  "description": "An IDE for running coding agents side by side, in your browser.",
+  "category": "agents",
+  "changes": "First version in the catalog: Orca 1.4.250.",
+  "upstream": { "url": "https://github.com/stablyai/orca", "license": "MIT" },
+  "maintainers": ["harshdoesdev"],
+  "icon": "icon.svg",
+  "screenshots": ["screenshots/1.webp"],
+  "url": "workspace",
+  "wake_seconds": 40,
+  "footprint": { "memory_mb": 400, "cpu_percent": 1, "disk_mb": 1800 },
+  "notes": [
+    "An open Orca tab keeps the sandbox running.",
+    "Agents waiting for you stop when the sandbox parks."
+  ],
+  "inputs": [
+    {
+      "key": "ANTHROPIC_API_KEY",
+      "type": "secret",
+      "label": "Anthropic API key",
+      "help": "For Claude Code in Orca. You can also sign in from Orca later.",
+      "link": "https://console.anthropic.com/settings/keys",
+      "hosts": ["api.anthropic.com"],
+      "placeholder": "sk-ant-..."
+    },
+    {
+      "key": "ORCA_REPOSITORY",
+      "type": "text",
+      "format": "git_url",
+      "label": "Repository to open",
+      "help": "Cloned into the sandbox the first time Orca starts.",
+      "placeholder": "https://github.com/you/project"
+    }
+  ],
+  "steps": [
+    {
+      "title": "Connect a model",
+      "body": "Orca runs the agents you sign in. A key here lets Claude Code start right away.",
+      "inputs": ["ANTHROPIC_API_KEY"]
+    },
+    { "title": "Pick a project", "inputs": ["ORCA_REPOSITORY"] }
+  ]
+}
