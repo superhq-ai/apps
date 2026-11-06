@@ -6,11 +6,11 @@
 
 1. Open the app page in SuperHQ and select **Connect to Orca**. SuperHQ securely opens the browser pairing link for your workspace.
 2. Sign your agents in from Orca, or optionally set an API key in Configuration. An API key is not required to deploy.
-3. For diagnostics, open the app's **Logs** tab and select **Read logs**. Select **Follow** for live updates and **Pause** to stop. Runtime logs may contain private app output; pairing links are hidden.
+3. For diagnostics, open the app's **Logs** tab and select **Read logs**. Toggle **Live** for live updates; select it again to pause. Runtime logs may contain private app output; pairing links are hidden.
 
-Connecting or reading logs may wake the sandbox. Following logs keeps it awake while the tab is visible. If Orca is stopped, start it from its app page first.
+Connecting or reading logs may wake the sandbox. Live updates keep it awake while the tab is visible. If Orca is stopped, start it from its app page first.
 
-Catalog revision 1.4.251 still installs upstream Orca 1.4.250. This revision corrects the setup instructions; it does not change the runtime or its pinned downloads.
+Catalog revision 1.4.252 still installs upstream Orca 1.4.250. This revision corrects the setup instructions; it does not change the runtime or its pinned downloads.
 
 ## Good to know
 

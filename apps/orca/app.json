@@ -1,9 +1,9 @@
 {
   "name": "Orca",
-  "version": "1.4.251",
+  "version": "1.4.252",
   "description": "An IDE for running coding agents side by side, in your browser.",
   "category": "agents",
-  "changes": "Correct first-run pairing and runtime log instructions. Still installs upstream Orca 1.4.250; pinned downloads and runtime scripts are unchanged.",
+  "changes": "Align runtime log instructions with the Live control. Still installs upstream Orca 1.4.250; pinned downloads and runtime scripts are unchanged.",
   "upstream": { "url": "https://github.com/stablyai/orca", "license": "MIT" },
   "maintainers": ["harshdoesdev"],
   "icon": "icon.svg",
@@ -14,7 +14,7 @@
   "notes": [
     "An open Orca tab keeps the sandbox running.",
     "Agents waiting for you stop when the sandbox parks.",
-    "Catalog revision 1.4.251 installs upstream Orca 1.4.250."
+    "Catalog revision 1.4.252 installs upstream Orca 1.4.250."
   ],
   "inputs": [
     {
