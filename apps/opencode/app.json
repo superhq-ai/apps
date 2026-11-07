@@ -18,9 +18,9 @@
   "url": "workspace",
   "wake_seconds": 60,
   "footprint": {
-    "memory_mb": 512,
-    "cpu_percent": 2,
-    "disk_mb": 1500
+    "memory_mb": 440,
+    "cpu_percent": 1,
+    "disk_mb": 1062
   },
   "notes": [
     "Workspace members who can open the app share access to its projects, terminal and connected providers.",

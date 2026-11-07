@@ -8,7 +8,7 @@
 2. Optionally enter a public Git repository to clone.
 3. Deploy and choose **Open**. Choose a project folder and select a model in OpenCode. The optional clone is at `/home/app/work`.
 
-You can also connect providers through OpenCode's own interface. Credentials entered there are managed by OpenCode and saved in its app sandbox. Provider usage is billed separately from hosting. Private Git repositories need their own Git authentication in the sandbox.
+You can also connect providers through OpenCode's own interface. Credentials entered there are managed by OpenCode and saved in its app sandbox. Provider usage is billed separately from hosting. Private Git repositories need their own Git authentication in the sandbox. For subscription sign-in, choose a headless or device option when the provider offers one. A localhost callback points to the cloud sandbox.
 
 The address is private to the SuperHQ workspace. Members who can open it can use its projects, terminal and connected accounts.
 
