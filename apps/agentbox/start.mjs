@@ -50,7 +50,8 @@ export async function start() {
     stop(1);
   }, 60000);
   backend.once('error', error => { console.error(error.message); stop(1); });
-  backend.once('exit', code => stop(code ?? 1));
+  backend.once('exit', code => stop(code === 0 ? 1 : (code ?? 1)));
+  process.once('exit', () => { backend.kill('SIGTERM'); proxy?.kill('SIGTERM'); });
   createInterface({ input: backend.stderr }).on('line', line => console.error(redact(line)));
   createInterface({ input: backend.stdout }).on('line', line => {
     const token = accessKey(line);
@@ -76,7 +77,7 @@ export async function start() {
     }
     proxy.once('error', error => { console.error(redact(error.message)); stop(1); });
     proxy.once('exit', code => stop(code === 0 ? 1 : (code ?? 1)));
-    console.log('Agentbox is ready through SuperHQ workspace access.');
+    console.log('Starting Agentbox browser access through SuperHQ.');
   });
   for (const signal of ['SIGTERM', 'SIGINT']) process.once(signal, () => stop(0));
 }
