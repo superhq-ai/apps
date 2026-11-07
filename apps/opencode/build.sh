@@ -10,6 +10,19 @@ esac
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -q
 apt-get install -y -q --no-install-recommends caddy=2.6.2-12+deb13u1 git=1:2.47.3-0+deb13u1 python3=3.13.5-1 ripgrep=14.1.1-1+b4
+# Check actual Caddy parsing: a Basic value must set one complete header.
+PORT=8080 APP_URL=https://build.example OPENCODE_PROXY_AUTH='Basic build-check' python3 - <<'CHECK'
+import json, subprocess
+config = json.loads(subprocess.check_output(['caddy', 'adapt', '--config', 'Caddyfile', '--adapter', 'caddyfile'], stderr=subprocess.DEVNULL))
+def nodes(value):
+    if isinstance(value, dict):
+        yield value
+        for child in value.values(): yield from nodes(child)
+    elif isinstance(value, list):
+        for child in value: yield from nodes(child)
+headers = [n.get('headers', {}).get('request', {}) for n in nodes(config) if n.get('handler') == 'reverse_proxy']
+assert any(h.get('set', {}).get('Authorization') == ['Basic build-check'] for h in headers), 'The proxy must overwrite Authorization with one complete Basic value'
+CHECK
 mkdir -p "/opt/opencode/$VERSION" "/opt/opencode/node-$NODE"
 curl -fsSLo /tmp/opencode.tar.gz "https://github.com/anomalyco/opencode/releases/download/v$VERSION/opencode-linux-$ASSET.tar.gz"
 echo "$SUM  /tmp/opencode.tar.gz" | sha256sum -c -
