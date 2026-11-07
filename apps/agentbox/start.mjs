@@ -12,7 +12,8 @@ export function accessKey(line) {
 
 export async function start() {
   if (process.getuid?.() === 0) throw new Error('Agentbox must run as the app user');
-  if (!process.env.APP_URL?.startsWith('https://')) throw new Error('APP_URL must be the app HTTPS address');
+  const appUrl = new URL(process.env.APP_URL ?? '');
+  if (appUrl.protocol !== 'https:' || appUrl.username || appUrl.password) throw new Error('APP_URL must be the app HTTPS address');
   const directory = path.dirname(fileURLToPath(import.meta.url));
   const store = path.join(homedir(), '.agentbox');
   const work = path.join(homedir(), 'work');
@@ -58,7 +59,7 @@ export async function start() {
     key = token;
     clearTimeout(ready);
     const adapted = spawnSync('caddy', ['adapt', '--config', path.join(directory, 'Caddyfile'), '--adapter', 'caddyfile'], {
-      env: { ...process.env, AGENTBOX_BACKEND_TOKEN: key }, encoding: 'utf8',
+      env: { ...process.env, APP_URL: appUrl.origin, AGENTBOX_BACKEND_TOKEN: key }, encoding: 'utf8',
     });
     if (adapted.error || adapted.status !== 0) {
       console.error(redact(adapted.error?.message ?? adapted.stderr));

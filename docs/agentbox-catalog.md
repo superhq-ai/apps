@@ -10,7 +10,7 @@ The manifest requires workspace access. Do not expose this proxy publicly: works
 
 ## State and lifetime
 
-/home/app/.agentbox holds application state. /home/app/work is an optional first-run repository clone; it is not overwritten on restart. CLI account files remain in the app user's home. Release updates replace code, not home data. SIGTERM stops both backend and proxy; an unexpected child exit fails the service.
+/home/app/.agentbox holds native configuration; /home/app/.local/share/agentbox holds the native store. /home/app/work is an optional first-run repository clone; it is not overwritten on restart. CLI account files remain in the app user's home. Release updates replace code, not home data. SIGTERM stops both backend and proxy; an unexpected child exit fails the service.
 
 The existing sandbox lifecycle applies. Keeping the browser open keeps the sandbox active. Parking stops running work. No artificial keepalive or guaranteed unattended execution is introduced.
 
@@ -19,3 +19,7 @@ The existing sandbox lifecycle applies. Keeping the browser open keeps the sandb
 Build on a SuperHQ ARM64 sandbox, check PTY and both installed CLIs, test browser HTTP and SSE, verify unauthenticated and foreign-Origin rejection, test restart persistence and process shutdown, exercise remote sign-in without approving a user's account, capture actual UI, and measure resources using CONTRIBUTING.md. Account authorization and paid agent execution require the account owner; do not invent a successful end-to-end coding run.
 
 Run npm run check, node --test scripts/test-agentbox.mjs, and the console checkApp validator. Keep the total catalog text below 256 KiB. Preserve the upstream GPL license. Updates must change all versioned install paths together and regenerate the lockfile.
+
+## Remote account sign-in
+
+The published browser setup starts `codex login` or `claude auth login --claudeai`. Their ordinary OAuth flow can use a localhost callback on the remote server, which is not the user's own computer. Do not claim that approving the browser link alone completes remote setup. README directs the owner to the app terminal, using Codex's official device flow when enabled, or Claude Code's interactive CLI instructions. No credential files from the developer's machine are copied into a customer sandbox, and no API-key workaround bypasses Agentbox's subscription policy.

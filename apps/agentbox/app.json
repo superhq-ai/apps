@@ -12,7 +12,9 @@
     "harshdoesdev"
   ],
   "icon": "icon.svg",
-  "screenshots": [],
+  "screenshots": [
+    "screenshots/1.webp"
+  ],
   "url": "workspace",
   "wake_seconds": 60,
   "footprint": {
@@ -21,7 +23,7 @@
     "disk_mb": 2500
   },
   "notes": [
-    "Sign in to Claude Code or Codex from Agentbox. Their subscriptions and usage are separate from hosting.",
+    "Sign in through the app terminal. Native browser login can require a localhost callback; Codex supports device sign-in. Provider usage is separate.",
     "The app and its coding-agent accounts are shared by workspace members who can open it.",
     "Keep the browser open while agents work. Running tasks stop when the sandbox parks."
   ],
