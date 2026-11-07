@@ -37,3 +37,9 @@ Use `python3 scripts/test-nanobot.py` and `npm run check` locally. The console's
 - Gateway restart retains a workspace file and unrelated channel settings; config permissions stay 0600. Native validation and environment-reference resolution pass for OpenRouter, OpenAI and Anthropic.
 - The installed HTTP client validates TLS to OpenRouter (200), OpenAI (401 without a key) and Anthropic (401 without a key). No paid model request was made; a real-key chat remains a follow-up check.
 - Final catalog publication and its first managed deployment must follow the required code-owner review and merge. The isolated sandbox exercise verifies the package runtime, not the complete catalog deployment workflow.
+
+## Measured footprint
+
+On 2026-11-07, a SuperHQ ARM64 verification sandbox with the WebUI open for ten minutes used 263 MiB of memory. Four subsequent 60-second vmstat intervals averaged 1.50% of one CPU across the two-CPU sandbox. The root filesystem used 934 MiB. The catalog rounds these up conservatively to 264 MB memory, 2% CPU and 935 MB disk. This includes Debian, installed packages, Caddy and the gateway, with no model key configured. Additional channels, tools and user files can increase usage.
+
+The temporary verification sandbox was removed after recording the results. Catalog-managed deployment remains to be checked after the required code-owner review and merge.

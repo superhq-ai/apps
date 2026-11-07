@@ -18,9 +18,9 @@
   "url": "workspace",
   "wake_seconds": 40,
   "footprint": {
-    "memory_mb": 512,
-    "cpu_percent": 1,
-    "disk_mb": 2000
+    "memory_mb": 264,
+    "cpu_percent": 2,
+    "disk_mb": 935
   },
   "notes": [
     "The URL is private to your workspace. Workspace members can administer this agent.",

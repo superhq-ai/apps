@@ -24,12 +24,12 @@ npm run check
 
 ## How it runs
 
-The app gets a sandbox of 2 CPUs and 8 GB, with a 20 GB disk, Debian trixie, as root.
+The app gets a sandbox of 2 CPUs and 8 GB, with a 20 GB disk and Debian trixie. Fetch and build run as root. Procfile processes and the app terminal run as the normal `app` user, without sudo.
 
-- `sh build.sh` runs when a version is deployed, in a new release directory holding your files.
-- The Procfile then runs, with `web` serving on `$PORT`. Its URL is in `$APP_URL`.
+- `sh build.sh` runs as root when a version is deployed, in a new release directory holding your files.
+- The Procfile then runs as `app`, with `web` serving on `$PORT`. Its URL is in `$APP_URL`, and `$HOME` is `/home/app`.
 - The inputs of `app.json` are in the env of both. A secret is a placeholder in the env; the network puts the real value in requests to its `hosts` only.
-- A sandbox parks when nothing uses it, and wakes on the next request. Keep state you care about outside the release directory, such as in `/root`.
+- A sandbox parks when nothing uses it, and wakes on the next request. Keep state you care about outside the release directory, such as in `/home/app`.
 
 ## Scripts install the app, they do not contain it
 
