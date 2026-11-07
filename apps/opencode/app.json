@@ -1,0 +1,100 @@
+{
+  "name": "OpenCode",
+  "version": "1.19.5",
+  "description": "Your coding agent in the browser, with projects, terminals and your choice of models.",
+  "category": "agents",
+  "changes": "First catalog release: native browser UI, persistent projects, workspace access and managed provider keys.",
+  "upstream": {
+    "url": "https://github.com/anomalyco/opencode",
+    "license": "MIT"
+  },
+  "maintainers": [
+    "harshdoesdev"
+  ],
+  "icon": "icon.svg",
+  "screenshots": [],
+  "url": "workspace",
+  "wake_seconds": 60,
+  "footprint": {
+    "memory_mb": 512,
+    "cpu_percent": 2,
+    "disk_mb": 1500
+  },
+  "notes": [
+    "Workspace members who can open the app share access to its projects, terminal and connected providers.",
+    "Keep a browser tab open while an agent works. Running tasks stop when the sandbox parks.",
+    "Model usage is billed separately by your provider."
+  ],
+  "inputs": [
+    {
+      "key": "OPENCODE_API_KEY",
+      "type": "secret",
+      "label": "OpenCode API key",
+      "help": "Optional. Add the key for the provider you want to use.",
+      "hosts": [
+        "opencode.ai"
+      ],
+      "link": "https://opencode.ai/auth",
+      "in": "authorization"
+    },
+    {
+      "key": "OPENROUTER_API_KEY",
+      "type": "secret",
+      "label": "OpenRouter API key",
+      "help": "Optional. Add the key for the provider you want to use.",
+      "hosts": [
+        "openrouter.ai"
+      ],
+      "link": "https://openrouter.ai/settings/keys",
+      "in": "authorization"
+    },
+    {
+      "key": "OPENAI_API_KEY",
+      "type": "secret",
+      "label": "OpenAI API key",
+      "help": "Optional. Add the key for the provider you want to use.",
+      "hosts": [
+        "api.openai.com"
+      ],
+      "link": "https://platform.openai.com/api-keys",
+      "in": "authorization"
+    },
+    {
+      "key": "ANTHROPIC_API_KEY",
+      "type": "secret",
+      "label": "Anthropic API key",
+      "help": "Optional. Add the key for the provider you want to use.",
+      "hosts": [
+        "api.anthropic.com"
+      ],
+      "link": "https://console.anthropic.com/settings/keys",
+      "in": "head"
+    },
+    {
+      "key": "OPENCODE_REPOSITORY",
+      "type": "text",
+      "format": "git_url",
+      "label": "Repository to clone",
+      "help": "Optional public Git repository. Cloned once into /home/app/work.",
+      "placeholder": "https://github.com/you/project"
+    }
+  ],
+  "steps": [
+    {
+      "title": "Connect a provider",
+      "body": "Add a provider API key, or skip and connect a provider in OpenCode. Keys entered here use the sandbox credential manager.",
+      "inputs": [
+        "OPENCODE_API_KEY",
+        "OPENROUTER_API_KEY",
+        "OPENAI_API_KEY",
+        "ANTHROPIC_API_KEY"
+      ]
+    },
+    {
+      "title": "Pick a project",
+      "inputs": [
+        "OPENCODE_REPOSITORY"
+      ]
+    }
+  ]
+}
