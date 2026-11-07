@@ -1,0 +1,21 @@
+{
+	admin off
+	auto_https off
+	persist_config off
+}
+:{$PORT} {
+	@crossOrigin {
+		header Origin *
+		not header Origin {$APP_URL}
+	}
+	respond @crossOrigin "Forbidden origin" 403
+	# This is a public marker for the native browser bridge, not an access key.
+	@entry {
+		path /
+		not query token=workspace
+	}
+	redir @entry /?token=workspace 302
+	reverse_proxy 127.0.0.1:18765 {
+		header_up X-Agentbox-Token {$AGENTBOX_BACKEND_TOKEN}
+	}
+}

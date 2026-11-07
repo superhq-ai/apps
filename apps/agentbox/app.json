@@ -1,0 +1,46 @@
+{
+  "name": "Agentbox",
+  "version": "0.1.19",
+  "description": "An inbox for Claude Code and Codex agents, each working in its own git worktree.",
+  "category": "agents",
+  "changes": "First catalog release: browser UI, private workspace access, persistent state, Claude Code and Codex preinstalled.",
+  "upstream": {
+    "url": "https://github.com/savannahfeder/agentbox",
+    "license": "GPL-3.0-or-later"
+  },
+  "maintainers": [
+    "harshdoesdev"
+  ],
+  "icon": "icon.svg",
+  "screenshots": [],
+  "url": "workspace",
+  "wake_seconds": 60,
+  "footprint": {
+    "memory_mb": 512,
+    "cpu_percent": 2,
+    "disk_mb": 2500
+  },
+  "notes": [
+    "Sign in to Claude Code or Codex from Agentbox. Their subscriptions and usage are separate from hosting.",
+    "The app and its coding-agent accounts are shared by workspace members who can open it.",
+    "Keep the browser open while agents work. Running tasks stop when the sandbox parks."
+  ],
+  "inputs": [
+    {
+      "key": "AGENTBOX_REPOSITORY",
+      "type": "text",
+      "format": "git_url",
+      "label": "Repository to clone",
+      "help": "Optional public repository, cloned once into /home/app/work. Choose that folder inside Agentbox.",
+      "placeholder": "https://github.com/you/project"
+    }
+  ],
+  "steps": [
+    {
+      "title": "Pick a project",
+      "inputs": [
+        "AGENTBOX_REPOSITORY"
+      ]
+    }
+  ]
+}
