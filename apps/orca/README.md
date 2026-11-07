@@ -4,16 +4,15 @@
 
 ## After it deploys
 
-1. Open the app page in SuperHQ and select **Connect to Orca**. SuperHQ securely opens the browser pairing link for your workspace.
-2. Sign your agents in from Orca, or optionally set an API key in Configuration. An API key is not required to deploy.
-3. For diagnostics, open the app's **Logs** tab and select **Read logs**. Select **Follow** for live updates and **Pause** to stop. Runtime logs may contain private app output; pairing links are hidden.
+1. Select **Open** on the app page. Orca pairs each browser with a link it makes when it starts; Open waits for that link and opens Orca with it.
+2. Sign your agents in from Orca, or set an API key in Configuration.
 
-Connecting or reading logs may wake the sandbox. Following logs keeps it awake while the tab is visible. If Orca is stopped, start it from its app page first.
+Orca treats a pairing link like a password: each browser that pairs gets its own grant. To take one away, remove it in Orca under **Settings → Remote Orca Servers → Shared Server Access**.
 
-Catalog revision 1.4.251 still installs upstream Orca 1.4.250. This revision corrects the setup instructions; it does not change the runtime or its pinned downloads.
+Catalog revision 1.4.252 installs upstream Orca 1.4.250.
 
 ## Good to know
 
-- Orca keeps its state in `/root/.config/orca`, so sessions survive updates and parks.
+- Orca runs as the user `app`, and keeps its state in `/home/app/.config/orca`, so sessions survive updates and parks.
 - The URL stays open to your workspace only. Orca is not meant to face the internet.
-- The repository you pick is cloned once, into an empty project. To start over with another one, set it in Configuration and empty `/root/work` from the terminal of the sandbox.
+- The repository you pick is cloned once, into an empty project. To start over with another one, set it in Configuration and empty `/home/app/work` from the terminal of the sandbox.
