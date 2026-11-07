@@ -6,7 +6,7 @@ import { createInterface } from 'node:readline';
 import { fileURLToPath } from 'node:url';
 
 export function accessKey(line) {
-  const match = line.match(/http:\/\/127\.0\.0\.1:18765\/\?token=([A-Za-z0-9_-]{32})/);
+  const match = line.trim().match(/^http:\/\/127\.0\.0\.1:18765\/\?token=([A-Za-z0-9_-]{32})$/);
   return match?.[1] ?? null;
 }
 

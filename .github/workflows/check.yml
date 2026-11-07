@@ -21,3 +21,4 @@ jobs:
       - run: npm ci
       - run: node scripts/check.mjs
       - run: python3 scripts/test-nanobot.py
+      - run: node --test scripts/test-agentbox.mjs
