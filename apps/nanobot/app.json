@@ -46,7 +46,8 @@
           "value": "anthropic",
           "label": "Anthropic"
         }
-      ]
+      ],
+      "required": true
     },
     {
       "key": "NANOBOT_MODEL",

@@ -3,6 +3,13 @@
 	auto_https off
 }
 :{$PORT} {
+	# Browser WebSockets carry Origin. Do not let another site borrow the
+	# workspace cookie to control this shared agent.
+	@crossOrigin {
+		header Origin *
+		not header Origin {$APP_URL}
+	}
+	respond @crossOrigin "Forbidden origin" 403
 	reverse_proxy 127.0.0.1:18765 {
 		# Override client input. This listener is reached through workspace auth;
 		# nanobot accepts this assertion only from its direct loopback peer.

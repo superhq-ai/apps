@@ -6,7 +6,7 @@ Package upstream nanobot 0.4.0 as a workspace-private app, without changes to th
 
 ## Access boundary
 
-SuperHQ authenticates workspace access before forwarding to the browser-facing port. Caddy overwrites X-SuperHQ-Workspace-Auth and forwards to 127.0.0.1:18765. nanobot's native trustedProxyAuth accepts only 127.0.0.1/32 direct peers and requires the assertion. Neither nanobot's browser backend nor its health endpoint listens on a network interface. Do not make this package public without replacing that trust boundary with independent application authentication. Catalog url=workspace prevents making its address public through app settings.
+SuperHQ authenticates workspace access before forwarding to the browser-facing port. Caddy rejects a browser Origin different from APP_URL, overwrites X-SuperHQ-Workspace-Auth and forwards to 127.0.0.1:18765. nanobot's native trustedProxyAuth accepts only 127.0.0.1/32 direct peers and requires the assertion. Neither nanobot's browser backend nor its health endpoint listens on a network interface. Do not make this package public without replacing that trust boundary with independent application authentication. Catalog url=workspace prevents making its address public through app settings.
 
 ## State ownership
 
