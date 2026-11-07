@@ -23,3 +23,15 @@ Run npm run check, node --test scripts/test-agentbox.mjs, and the console checkA
 ## Remote account sign-in
 
 The published browser setup starts `codex login` or `claude auth login --claudeai`. Their ordinary OAuth flow can use a localhost callback on the remote server, which is not the user's own computer. Do not claim that approving the browser link alone completes remote setup. README directs the owner to the app terminal, using Codex's official device flow when enabled, or Claude Code's interactive CLI instructions. No credential files from the developer's machine are copied into a customer sandbox, and no API-key workaround bypasses Agentbox's subscription policy.
+
+## Verification on 2026-11-07
+
+The full ARM64 build passed in a fresh Debian trixie SuperHQ sandbox. Both pinned CLIs run and the native node-pty module executes a real shell as app in a project directory. The wrapper refuses root. A project and a separate state file survived restart, SIGTERM stopped both children, and Caddy did not create an autosave file containing its access key.
+
+The browser UI renders at 1440x900 and 390x844, with no mobile horizontal overflow. The screenshot shows a real public Git repository added to the verification instance; no fictional agent conversation or completed task was created. The published first-run screen can say Install even when readiness reports both CLIs found. Account sign-in remains required.
+
+The managed Developer workspace deployment completed successfully at commit d9d4a11451684e50702c8806c56e8715e6df3bae, with web, backend and proxy running as app. Its authenticated HTTPS event stream delivered both the initial retry directive and a subsequent heartbeat. Unauthenticated external page/API requests return 401. The loopback backend without its key returns 403; the proxy accepts its app Origin and rejects a foreign Origin with 403, including APP_URL values ending in a slash.
+
+Codex device login reached the official approval URL and code prompt, then was cancelled. No account was approved, no developer credential file was copied, and no paid model call was made. Claude Code's interactive account approval remains an owner check. AMD64 dependencies and Node sums are pinned, but a full AMD64 runtime test has not been performed.
+
+The first workspace copy uses the ordinary connected-repository app flow, pinned to the tested commit. Catalog publication is separate and awaits required maintainer review. Once the catalog release is merged, future workspace updates can follow a reviewed commit without replacing /home/app. The temporary verification sandbox was deleted; the managed Agentbox app remains.

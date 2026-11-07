@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect your coding agent · Agentbox</title>
+<link rel="stylesheet" href="/setup/style.css">
+<script src="/setup/client.js" defer></script>
+</head>
+<body>
+<main>
+<img class="mark" src="/setup/icon.svg" width="56" height="56" alt="Agentbox">
+<h1>Connect your coding agent</h1>
+<p class="intro">Use your Claude or ChatGPT subscription. Your coding tools are already installed.</p>
+<div class="providers">
+<section aria-labelledby="claude-title" data-provider="claude">
+<div class="provider-head"><h2 id="claude-title">Claude Code</h2><span class="state">Checking…</span></div>
+<button class="start" type="button">Sign in with Claude</button>
+<div class="approval" hidden>
+<p>Open Claude to approve sign-in.</p>
+<a class="approve button" target="_blank" rel="noreferrer noopener" hidden>Open Claude</a>
+<form class="code-form" hidden>
+<label for="claude-code">If Claude gives you a code, paste it here</label>
+<input id="claude-code" name="code" autocomplete="off" spellcheck="false" required>
+<button type="submit">Finish sign-in</button>
+</form>
+<button class="cancel quiet" type="button">Cancel</button>
+</div>
+<p class="error" role="alert" hidden></p>
+</section>
+<section aria-labelledby="codex-title" data-provider="codex">
+<div class="provider-head"><h2 id="codex-title">Codex</h2><span class="state">Checking…</span></div>
+<button class="start" type="button">Sign in with ChatGPT</button>
+<div class="approval" hidden>
+<p>Open ChatGPT, then enter this device code.</p>
+<div class="device-code" hidden><code></code><button class="copy quiet" type="button">Copy code</button></div>
+<a class="approve button" target="_blank" rel="noreferrer noopener" hidden>Open ChatGPT</a>
+<button class="cancel quiet" type="button">Cancel</button>
+</div>
+<p class="error" role="alert" hidden></p>
+</section>
+</div>
+<a id="open" class="button primary" href="/?token=workspace&amp;connected=1" hidden>Open Agentbox <span aria-hidden="true">→</span></a>
+<p class="note">Connect either account to start. Accounts and projects are shared with members who can open this app.</p>
+<p id="connection-error" role="alert" hidden></p>
+</main>
+</body>
+</html>

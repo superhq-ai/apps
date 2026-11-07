@@ -8,7 +8,7 @@
 2. Deploy and choose **Open**. SuperHQ workspace sign-in protects the address.
 3. Sign in to your coding-agent account using the app terminal as described below, reopen Agentbox, then choose a project folder on the server. The optional clone is at `/home/app/work`.
 
-Claude Code and Codex are preinstalled. They use their own account sign-in. Agentbox deliberately removes model API keys from agent processes, so this package has no model-key input. Provider subscriptions and usage are separate from SuperHQ hosting.
+Claude Code and Codex are preinstalled. They use their own account sign-in. Agentbox deliberately removes model API keys from agent processes, so this package has no model-key input. Provider subscriptions and usage are separate from SuperHQ hosting. The first screen may still say Install; sign in through the sandbox terminal and reopen Agentbox.
 
 ## Signing in on a remote machine
 

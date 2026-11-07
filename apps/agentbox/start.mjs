@@ -1,3 +1,4 @@
+import { createHostedSetup } from './setup.mjs';
 import { spawn, spawnSync } from 'node:child_process';
 import { mkdir, readdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
@@ -28,6 +29,7 @@ export async function start() {
   }
   let key = null;
   let proxy = null;
+  let setup = null;
   let stopping = false;
   const redact = line => key ? line.replaceAll(key, '[private access key]') : line;
   const backend = spawn(process.execPath, [
@@ -38,6 +40,7 @@ export async function start() {
     if (stopping) return;
     stopping = true;
     clearTimeout(ready);
+    setup?.stop(); setup?.server.close();
     backend.kill('SIGTERM');
     proxy?.kill('SIGTERM');
     setTimeout(() => process.exit(code), 3500).unref();
@@ -51,13 +54,22 @@ export async function start() {
   }, 60000);
   backend.once('error', error => { console.error(error.message); stop(1); });
   backend.once('exit', code => stop(code === 0 ? 1 : (code ?? 1)));
-  process.once('exit', () => { backend.kill('SIGTERM'); proxy?.kill('SIGTERM'); });
+  process.once('exit', () => { setup?.stop(); backend.kill('SIGTERM'); proxy?.kill('SIGTERM'); });
   createInterface({ input: backend.stderr }).on('line', line => console.error(redact(line)));
   createInterface({ input: backend.stdout }).on('line', line => {
     const token = accessKey(line);
     if (!token) { console.log(redact(line)); return; }
     if (proxy) return;
     key = token;
+    setup = createHostedSetup({ origin: appUrl.origin, cancelNative: async engine => {
+      const response = await fetch('http://127.0.0.1:18765/api/zero%3Aengine-setup', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Agentbox-Token': key },
+        body: JSON.stringify({ action: 'cancel', engine }), signal: AbortSignal.timeout(10000),
+      });
+      if (!response.ok) throw new Error('The previous sign-in could not be stopped');
+    } });
+    setup.server.once('error', error => { console.error(redact(error.message)); stop(1); });
+    setup.server.listen(18766, '127.0.0.1');
     clearTimeout(ready);
     const adapted = spawnSync('caddy', ['adapt', '--config', path.join(directory, 'Caddyfile'), '--adapter', 'caddyfile'], {
       env: { ...process.env, APP_URL: appUrl.origin, AGENTBOX_BACKEND_TOKEN: key }, encoding: 'utf8',
