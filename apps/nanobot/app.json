@@ -1,0 +1,110 @@
+{
+  "name": "nanobot",
+  "version": "0.4.0",
+  "description": "Your personal AI agent, with a browser workbench, memory, tools and automations.",
+  "category": "agents",
+  "changes": "First catalog release: nanobot 0.4.0 with workspace access, persistent state and host-restricted model keys.",
+  "upstream": {
+    "url": "https://github.com/HKUDS/nanobot",
+    "license": "MIT"
+  },
+  "maintainers": [
+    "harshdoesdev"
+  ],
+  "icon": "icon.svg",
+  "screenshots": [
+    "screenshots/1.png"
+  ],
+  "url": "workspace",
+  "wake_seconds": 40,
+  "footprint": {
+    "memory_mb": 264,
+    "cpu_percent": 2,
+    "disk_mb": 935
+  },
+  "notes": [
+    "The URL is private to your workspace. Workspace members can administer this agent.",
+    "Keep a browser tab open while a task or automation needs to run. Work stops when the sandbox parks.",
+    "Model usage is billed separately by your provider."
+  ],
+  "inputs": [
+    {
+      "key": "NANOBOT_PROVIDER",
+      "type": "choice",
+      "label": "Model provider",
+      "default": "openrouter",
+      "options": [
+        {
+          "value": "openrouter",
+          "label": "OpenRouter"
+        },
+        {
+          "value": "openai",
+          "label": "OpenAI"
+        },
+        {
+          "value": "anthropic",
+          "label": "Anthropic"
+        }
+      ],
+      "required": true
+    },
+    {
+      "key": "NANOBOT_MODEL",
+      "type": "text",
+      "label": "Model ID",
+      "help": "Optional. Defaults: openai/gpt-5-mini on OpenRouter, gpt-5-mini on OpenAI, claude-sonnet-4-5 on Anthropic."
+    },
+    {
+      "key": "OPENROUTER_API_KEY",
+      "type": "secret",
+      "label": "OpenRouter API key",
+      "help": "Used only for OpenRouter. Choose the matching provider on the previous screen.",
+      "hosts": [
+        "openrouter.ai"
+      ],
+      "link": "https://openrouter.ai/settings/keys",
+      "in": "authorization"
+    },
+    {
+      "key": "OPENAI_API_KEY",
+      "type": "secret",
+      "label": "OpenAI API key",
+      "help": "Used only for OpenAI. Choose the matching provider on the previous screen.",
+      "hosts": [
+        "api.openai.com"
+      ],
+      "link": "https://platform.openai.com/api-keys",
+      "in": "authorization"
+    },
+    {
+      "key": "ANTHROPIC_API_KEY",
+      "type": "secret",
+      "label": "Anthropic API key",
+      "help": "Used only for Anthropic. Choose the matching provider on the previous screen.",
+      "hosts": [
+        "api.anthropic.com"
+      ],
+      "link": "https://console.anthropic.com/settings/keys",
+      "in": "head"
+    }
+  ],
+  "steps": [
+    {
+      "title": "Choose a model",
+      "inputs": [
+        "NANOBOT_PROVIDER",
+        "NANOBOT_MODEL"
+      ]
+    },
+    {
+      "title": "Connect your provider",
+      "body": "Set the key for your chosen provider. You can also skip this and configure a provider in nanobot before chatting.",
+      "inputs": [
+        "OPENROUTER_API_KEY",
+        "OPENAI_API_KEY",
+        "ANTHROPIC_API_KEY"
+      ]
+    }
+  ]
+}
