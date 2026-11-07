@@ -1,0 +1,6 @@
+{
+  "name": "superhq-opencode-plugin-seed",
+  "private": true,
+  "version": "1.19.5",
+  "dependencies": { "@opencode-ai/plugin": "1.19.5" }
+}
