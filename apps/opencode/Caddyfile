@@ -9,6 +9,6 @@
 	}
 	respond @crossOrigin "Forbidden origin" 403
 	reverse_proxy 127.0.0.1:18765 {
-		header_up Authorization {$OPENCODE_PROXY_AUTH}
+		header_up Authorization "{$OPENCODE_PROXY_AUTH}"
 	}
 }
