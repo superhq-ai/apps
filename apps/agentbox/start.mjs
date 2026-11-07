@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { mkdir, readdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import path from 'node:path';
@@ -57,9 +57,19 @@ export async function start() {
     if (proxy) return;
     key = token;
     clearTimeout(ready);
-    proxy = spawn('caddy', ['run', '--config', path.join(directory, 'Caddyfile'), '--adapter', 'caddyfile'], {
-      env: { ...process.env, AGENTBOX_BACKEND_TOKEN: key }, stdio: ['ignore', 'pipe', 'pipe'],
+    const adapted = spawnSync('caddy', ['adapt', '--config', path.join(directory, 'Caddyfile'), '--adapter', 'caddyfile'], {
+      env: { ...process.env, AGENTBOX_BACKEND_TOKEN: key }, encoding: 'utf8',
     });
+    if (adapted.error || adapted.status !== 0) {
+      console.error(redact(adapted.error?.message ?? adapted.stderr));
+      stop(1);
+      return;
+    }
+    const config = JSON.parse(adapted.stdout);
+    config.admin = { disabled: true, config: { persist: false } };
+    proxy = spawn('caddy', ['run', '--config', '-'], { stdio: ['pipe', 'pipe', 'pipe'] });
+    proxy.stdin.on('error', () => stop(1));
+    proxy.stdin.end(JSON.stringify(config));
     for (const stream of [proxy.stdout, proxy.stderr]) {
       createInterface({ input: stream }).on('line', line => console.log(redact(line)));
     }
