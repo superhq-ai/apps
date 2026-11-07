@@ -89,10 +89,6 @@
       "minimum": 10,
       "maximum": 60
     },
-    "open": {
-      "type": "string",
-      "const": "link"
-    },
     "footprint": {
       "type": "object",
       "properties": {
