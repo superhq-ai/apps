@@ -4,15 +4,17 @@
 
 ## After it deploys
 
-1. Pair your browser once. Open the **Logs** tab of the app and find the line `Web client URL:`. Open that link in the browser you will use Orca from. Orca saves the pairing in that browser.
+1. Pair your browser once. Open the **Logs** tab of the app, read the logs, and click the `Web client URL` link in the browser you will use Orca from. It opens Orca in a new tab, and Orca saves the pairing in that browser.
 2. From then on, **Open** and the plain URL of the app connect in that browser. Repeat step 1 for each other browser.
 3. Sign your agents in from Orca, or set an API key in Configuration.
 
-If Orca says it cannot reach your Orca host, the browser holds a pairing Orca no longer knows, for example after its state was reset. Open the newest `Web client URL` from Logs to pair again.
+If Orca says it cannot reach your Orca host, the browser holds a pairing Orca no longer knows, for example after its state was reset. Click the newest `Web client URL` in Logs to pair again.
+
+If Orca shows **Connect to Orca**, paste the `Pairing URL` line from Logs, starting at `orca://`, into its box and select **Connect**.
 
 Orca treats a pairing link like a password: each browser that pairs gets its own grant. To take one away, remove it in Orca under **Settings → Remote Orca Servers → Shared Server Access**.
 
-Catalog revision 1.4.253 installs upstream Orca 1.4.250.
+Catalog revision 1.4.254 installs upstream Orca 1.4.250.
 
 ## Good to know
 
