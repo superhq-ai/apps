@@ -72,5 +72,10 @@
         "ANTHROPIC_API_KEY"
       ]
     }
-  ]
+  ],
+  "footprint": {
+    "memory_mb": 257,
+    "cpu_percent": 3,
+    "disk_mb": 677
+  }
 }
