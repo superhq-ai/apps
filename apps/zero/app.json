@@ -1,0 +1,76 @@
+{
+  "name": "0",
+  "version": "0.28.1",
+  "description": "An AI security workspace for code reviews, findings, research and fixes.",
+  "category": "tools",
+  "changes": "First catalog package: 0 0.28.1, FoxGuard 0.14.0, private browser access and persistent workspace state.",
+  "upstream": {
+    "url": "https://github.com/0sec-labs/0",
+    "license": "MIT OR Apache-2.0"
+  },
+  "maintainers": [
+    "harshdoesdev"
+  ],
+  "icon": "icon.svg",
+  "screenshots": [
+    "screenshots/1.webp",
+    "screenshots/2.webp",
+    "screenshots/3.webp",
+    "screenshots/4.webp"
+  ],
+  "url": "workspace",
+  "wake_seconds": 60,
+  "notes": [
+    "Workspace members share access to the files, tools and provider connections in this app.",
+    "Use security workflows only on systems you own or are authorized to assess.",
+    "Running jobs stop when the sandbox parks. Saved files, findings and sessions persist.",
+    "Model usage is billed separately by your provider.",
+    "Includes FoxGuard source analysis. Docker, Ghidra, SmolVM and browser automation toolchains are not preinstalled."
+  ],
+  "inputs": [
+    {
+      "key": "OPENROUTER_API_KEY",
+      "type": "secret",
+      "label": "OpenRouter API key",
+      "help": "Optional. Connect your chosen provider here or in 0 before starting an AI workflow.",
+      "hosts": [
+        "openrouter.ai"
+      ],
+      "link": "https://openrouter.ai/settings/keys",
+      "in": "authorization"
+    },
+    {
+      "key": "OPENAI_API_KEY",
+      "type": "secret",
+      "label": "OpenAI API key",
+      "help": "Optional. Connect your chosen provider here or in 0 before starting an AI workflow.",
+      "hosts": [
+        "api.openai.com"
+      ],
+      "link": "https://platform.openai.com/api-keys",
+      "in": "authorization"
+    },
+    {
+      "key": "ANTHROPIC_API_KEY",
+      "type": "secret",
+      "label": "Anthropic API key",
+      "help": "Optional. Connect your chosen provider here or in 0 before starting an AI workflow.",
+      "hosts": [
+        "api.anthropic.com"
+      ],
+      "link": "https://console.anthropic.com/settings/keys",
+      "in": "head"
+    }
+  ],
+  "steps": [
+    {
+      "title": "Connect a model provider",
+      "body": "Add a key for the provider you use, or connect one inside 0. Select your model in the app.",
+      "inputs": [
+        "OPENROUTER_API_KEY",
+        "OPENAI_API_KEY",
+        "ANTHROPIC_API_KEY"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+	admin off
+	auto_https off
+}
+:{$PORT} {
+	@crossOrigin {
+		header Origin *
+		not header Origin {$APP_URL}
+	}
+	respond @crossOrigin "Forbidden origin" 403
+	@crossSite {
+		path /api/*
+		header Sec-Fetch-Site cross-site
+	}
+	respond @crossSite "Forbidden cross-site request" 403
+	header {
+		Content-Security-Policy "frame-ancestors 'none'"
+		X-Content-Type-Options nosniff
+	}
+	reverse_proxy 127.0.0.1:48123 {
+		header_up Host 127.0.0.1:48123
+		header_up Origin http://127.0.0.1:48123
+	}
+}
