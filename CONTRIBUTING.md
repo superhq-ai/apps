@@ -24,7 +24,7 @@ npm run check
 
 ## How it runs
 
-The app gets a sandbox of 2 CPUs and 8 GB, with a 20 GB disk and Debian trixie. Fetch and build run as root. Procfile processes and the app terminal run as the normal `app` user, without sudo.
+New apps get a sandbox of 4 CPUs and 8 GB, with a 20 GB disk and Debian trixie. Existing sandboxes retain their creation-time CPU count. Fetch and build run as root. Procfile processes and the app terminal run as the normal `app` user, without sudo.
 
 - `sh build.sh` runs as root when a version is deployed, in a new release directory holding your files.
 - The Procfile then runs as `app`, with `web` serving on `$PORT`. Its URL is in `$APP_URL`, and `$HOME` is `/home/app`.
@@ -47,11 +47,11 @@ The app gets a sandbox of 2 CPUs and 8 GB, with a 20 GB disk and Debian trixie. 
 
    ```
    free -m | awk '/^Mem:/ { print "memory_mb", $3 }'
-   vmstat 60 5 | tail -n 4 | awk '{ idle += $15 } END { printf "cpu_percent %d\n", (100 - idle / 4) * 2 }'
+   vmstat 60 5 | tail -n 4 | awk -v cpus="$(getconf _NPROCESSORS_ONLN)" '{ idle += $15 } END { printf "cpu_percent %.2f\n", (100 - idle / 4) * cpus }'
    df -m / | awk 'NR == 2 { print "disk_mb", $3 }'
    ```
 
-   `cpu_percent` is of one CPU, so the line above doubles the share of the two. Round each up.
+   `cpu_percent` is of one CPU, so the line above multiplies the average busy share by the sandbox's actual CPU count. Round each up. Use the observed count for older sandboxes too; do not assume the current default.
 3. Put them in `app.json`, and say in the pull request how you measured.
 
 ## Review
